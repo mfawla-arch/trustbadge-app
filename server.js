@@ -46,6 +46,25 @@ app.get("/auth/callback", async (req, res) => {
   res.redirect(`/app?shop=${shop}`);
 });
 
+// Mandatory Privacy Webhooks (Shopify Compliance)
+app.post("/webhooks/customers-redact", express.json(), (req, res) => {
+  // Handle customer data redaction (GDPR)
+  console.log("Customer redact webhook:", req.body);
+  res.json({ success: true });
+});
+
+app.post("/webhooks/shop-redact", express.json(), (req, res) => {
+  // Handle shop data deletion (store closure)
+  console.log("Shop redact webhook:", req.body);
+  res.json({ success: true });
+});
+
+app.post("/webhooks/customers-data-request", express.json(), (req, res) => {
+  // Handle customer data request (GDPR export)
+  console.log("Customer data request webhook:", req.body);
+  res.json({ success: true });
+});
+
 // App Dashboard
 app.get("/app", (req, res) => {
   const shop = req.query.shop || req.session.shop;
