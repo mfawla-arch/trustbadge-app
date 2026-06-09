@@ -47,20 +47,17 @@ app.get("/auth/callback", async (req, res) => {
 });
 
 // Mandatory Privacy Webhooks (Shopify Compliance)
-app.post("/webhooks/customers-redact", express.json(), (req, res) => {
-  // Handle customer data redaction (GDPR)
+app.post("/webhooks/customers-redact", (req, res) => {
   console.log("Customer redact webhook:", req.body);
   res.json({ success: true });
 });
 
-app.post("/webhooks/shop-redact", express.json(), (req, res) => {
-  // Handle shop data deletion (store closure)
+app.post("/webhooks/shop-redact", (req, res) => {
   console.log("Shop redact webhook:", req.body);
   res.json({ success: true });
 });
 
-app.post("/webhooks/customers-data-request", express.json(), (req, res) => {
-  // Handle customer data request (GDPR export)
+app.post("/webhooks/customers-data-request", (req, res) => {
   console.log("Customer data request webhook:", req.body);
   res.json({ success: true });
 });
